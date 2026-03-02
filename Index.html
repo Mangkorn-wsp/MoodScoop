@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Scoop</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Georgia', serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.6s ease;
+  background: linear-gradient(135deg, #f5f2ec, #e8dfd3);
+}
+
+.container {
+  text-align: center;
+  padding: 40px;
+  max-width: 400px;
+  width: 90%;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #2e2a26;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  color: #5c544c;
+}
+
+select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+.find-btn {
+  background: #2e2a26;
+  color: white;
+}
+
+.random-btn {
+  background: #b79b6c;
+  color: white;
+}
+
+.result-box {
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.4s ease;
+}
+
+.result-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#flavorName {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#flavorDesc {
+  font-size: 15px;
+  color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Mood Scoop</h1>
+  <p class="subtitle">Choose your feeling. Let the flavor answer.</p>
+
+  <select id="moodSelect">
+    <option value="">-- Select your feeling --</option>
+    <option value="peaceful">Peaceful</option>
+    <option value="heartbroken">Heartbroken</option>
+    <option value="inlove">In Love</option>
+    <option value="stressed">Stressed</option>
+    <option value="sad">Sad</option>
+    <option value="lonely">Lonely</option>
+    <option value="unique">Unique</option>
+    <option value="excited">Excited</option>
+    <option value="pride">Pride</option>
+  </select>
+
+  <button class="find-btn" onclick="findFlavor()">Find My Flavor</button>
+  <button class="random-btn" onclick="randomFlavor()">🎲 Random Flavor</button>
+
+  <div class="result-box" id="resultBox">
+    <h2 id="flavorName"></h2>
+    <p id="flavorDesc"></p>
+  </div>
+</div>
+
+<script>
+const flavors = {
+  peaceful: {
+    name: "Vanilla Dream",
+    desc: "Soft, calm, and comforting like a quiet sunset.",
+    bg: "linear-gradient(135deg, #f5f2ec, #e8dfd3)"
+  },
+  heartbroken: {
+    name: "Dark Chocolate",
+    desc: "Bittersweet and deep. Strong, just like your heart.",
+    bg: "linear-gradient(135deg, #3a2c2c, #1e1a1a)"
+  },
+  inlove: {
+    name: "Strawberry Bliss",
+    desc: "Sweet, romantic, and full of warmth.",
+    bg: "linear-gradient(135deg, #ff9a9e, #fad0c4)"
+  },
+  stressed: {
+    name: "Mint Relief",
+    desc: "Cool and refreshing. Clears your mind instantly.",
+    bg: "linear-gradient(135deg, #89f7fe, #66a6ff)"
+  },
+  sad: {
+    name: "Cookies & Cream",
+    desc: "Comfort in every bite.",
+    bg: "linear-gradient(135deg, #cfd9df, #e2ebf0)"
+  },
+  lonely: {
+    name: "Salted Caramel",
+    desc: "Sweet with a little salt. Complex emotions.",
+    bg: "linear-gradient(135deg, #d1913c, #ffd194)"
+  },
+  unique: {
+    name: "Matcha Fusion",
+    desc: "Different. Bold. Unforgettable.",
+    bg: "linear-gradient(135deg, #a8e063, #56ab2f)"
+  },
+  excited: {
+    name: "Rainbow Sorbet",
+    desc: "Bright, colorful, and full of energy!",
+    bg: "linear-gradient(135deg, #f6d365, #fda085)"
+  },
+  pride: {
+    name: "Golden Honey",
+    desc: "Rich and confident. A flavor that shines.",
+    bg: "linear-gradient(135deg, #fbd786, #f7797d)"
+  }
+};
+
+function showResult(key) {
+  document.getElementById("flavorName").innerText = flavors[key].name;
+  document.getElementById("flavorDesc").innerText = flavors[key].desc;
+  document.body.style.background = flavors[key].bg;
+
+  const box = document.getElementById("resultBox");
+  box.classList.add("show");
+}
+
+function findFlavor() {
+  const mood = document.getElementById("moodSelect").value;
+  if (!mood) {
+    alert("Please select your feeling first!");
+    return;
+  }
+  showResult(mood);
+}
+
+function randomFlavor() {
+  const keys = Object.keys(flavors);
+  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+  showResult(randomKey);
+}
+</script>
+
+</body>
+</html>
